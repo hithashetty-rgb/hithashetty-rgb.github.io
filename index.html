@@ -1,169 +1,434 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sihyaah — Fine Jewellery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#B8962E;--gold2:#D4AF5A;--gold3:#8A6E20;--deep:#1A1410;--border:rgba(184,150,46,0.22);--border2:rgba(184,150,46,0.4)}
-.app{font-family:'Jost',sans-serif;color:var(--deep);background:transparent}
+:root{
+  --gold:#C9A84C;
+  --gold2:#E8CB72;
+  --gold3:#8A6E1E;
+  --bg:#080808;
+  --bg2:#0F0F0D;
+  --bg3:#161410;
+  --cream:#F0EBE1;
+  --muted:#7A746A;
+  --muted2:#4A4540;
+  --border:rgba(201,168,76,0.18);
+  --border2:rgba(201,168,76,0.42);
+  --red:#8B1A2A;
+}
 
-.splash{min-height:520px;background:var(--color-background-primary);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;position:relative;overflow:hidden;border-bottom:0.5px solid var(--border)}
-.splash-ornament{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
-.splash-center{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:0}
-.splash-eyebrow{font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);font-weight:400;margin-bottom:18px}
-.splash-brand{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;letter-spacing:0.12em;color:var(--color-text-primary);line-height:1;margin-bottom:6px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'Jost',sans-serif;min-height:100vh;overflow-x:hidden}
+
+/* ── GRAIN OVERLAY ─────────────────────────────────────── */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity:1;mix-blend-mode:overlay;
+}
+
+/* ── MARQUEE ───────────────────────────────────────────── */
+.marquee-bar{overflow:hidden;background:var(--bg);border-bottom:0.5px solid var(--border);padding:9px 0;position:relative;z-index:10}
+.marquee-track{display:flex;width:max-content;animation:marquee 22s linear infinite}
+.marquee-track:hover{animation-play-state:paused}
+.m-item{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);padding:0 36px;white-space:nowrap}
+.m-item b{color:var(--gold);font-weight:400;margin-right:6px}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── SPLASH ────────────────────────────────────────────── */
+.splash{
+  min-height:100vh;background:var(--bg);display:flex;flex-direction:column;
+  justify-content:center;padding:5vw 6vw;position:relative;overflow:hidden;
+}
+/* corner brackets */
+.c{position:absolute;width:100px;height:100px}
+.c.tl{top:28px;left:28px;border-top:0.5px solid var(--border2);border-left:0.5px solid var(--border2)}
+.c.tr{top:28px;right:28px;border-top:0.5px solid var(--border2);border-right:0.5px solid var(--border2)}
+.c.bl{bottom:28px;left:28px;border-bottom:0.5px solid var(--border2);border-left:0.5px solid var(--border2)}
+.c.br{bottom:28px;right:28px;border-bottom:0.5px solid var(--border2);border-right:0.5px solid var(--border2)}
+
+/* diagonal accent line */
+.splash-slash{
+  position:absolute;top:0;right:18%;width:0.5px;height:100%;
+  background:linear-gradient(to bottom,transparent,var(--border),transparent);
+  transform:skewX(-8deg);
+}
+.splash-slash2{
+  position:absolute;top:0;right:22%;width:0.5px;height:100%;
+  background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.08),transparent);
+  transform:skewX(-8deg);
+}
+
+.splash-eyebrow{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.38em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:28px;
+  display:flex;align-items:center;gap:14px;
+}
+.splash-eyebrow::before{content:'';display:block;width:28px;height:0.5px;background:var(--gold)}
+
+.splash-brand{
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(72px,13vw,156px);line-height:0.88;
+  color:var(--cream);letter-spacing:-0.02em;margin-bottom:0;
+}
 .splash-brand em{color:var(--gold);font-style:italic}
-.splash-tagline{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;font-style:italic;color:var(--color-text-secondary);letter-spacing:0.08em;margin-bottom:36px}
-.splash-divider{display:flex;align-items:center;gap:12px;margin-bottom:36px}
-.splash-divider-line{width:60px;height:0.5px;background:var(--gold)}
-.splash-divider-gem{width:6px;height:6px;background:var(--gold);transform:rotate(45deg)}
-.splash-cta{background:var(--deep);color:#fff;border:none;padding:14px 40px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;border-radius:0;transition:all 0.3s;position:relative}
-.splash-cta:hover{background:var(--gold)}
-.splash-cta::after{content:'';position:absolute;inset:-4px;border:0.5px solid var(--border2);pointer-events:none}
-.splash-scroll{margin-top:28px;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--color-text-secondary);display:flex;align-items:center;gap:8px}
-.scroll-line{width:1px;height:28px;background:var(--border2);animation:scrollpulse 2s ease-in-out infinite}
-@keyframes scrollpulse{0%,100%{opacity:0.3;transform:scaleY(0.6) translateY(-4px)}50%{opacity:1;transform:scaleY(1) translateY(0)}}
-.splash-badges{display:flex;gap:24px;margin-bottom:36px;margin-top:4px}
-.badge{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-text-secondary);display:flex;align-items:center;gap:6px}
-.badge-dot{width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.splash-brand .outline{
+  -webkit-text-stroke:1px var(--cream);color:transparent;
+  display:block;font-size:clamp(36px,6.5vw,78px);letter-spacing:0.12em;
+  font-style:italic;margin-top:4px;
+}
+.splash-brand .outline em{-webkit-text-stroke:1px var(--gold);color:transparent}
 
-.header{padding:1.2rem 2rem 1rem;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--color-background-primary);display:none}
-.logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:0.18em;color:var(--color-text-primary)}
+.splash-tagline{
+  font-family:'Space Mono',monospace;font-size:10px;font-style:italic;
+  color:var(--muted);letter-spacing:0.12em;margin-top:28px;margin-bottom:44px;
+}
+.splash-tagline .slash{color:var(--gold);margin:0 10px;font-style:normal}
+
+.splash-actions{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.splash-cta{
+  background:transparent;color:var(--cream);
+  border:0.5px solid var(--cream);
+  padding:13px 38px;font-size:9px;letter-spacing:0.32em;text-transform:uppercase;
+  cursor:pointer;font-family:'Space Mono',monospace;transition:all 0.28s;
+}
+.splash-cta:hover{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+
+.splash-badges{display:flex;flex-direction:column;gap:5px}
+.s-badge{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.18em;color:var(--muted2);text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.s-badge::before{content:'';display:block;width:4px;height:4px;background:var(--gold);transform:rotate(45deg);flex-shrink:0}
+
+/* floating stat in bottom-right */
+.splash-stat{
+  position:absolute;bottom:5vw;right:6vw;text-align:right;
+}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--cream);line-height:1}
+.stat-num em{color:var(--gold);font-style:normal}
+.stat-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.22em;color:var(--muted);text-transform:uppercase;margin-top:4px}
+
+/* scroll cue */
+.scroll-cue{
+  position:absolute;bottom:5vw;left:6vw;
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.3em;
+  color:var(--muted2);text-transform:uppercase;
+  writing-mode:vertical-rl;display:flex;align-items:center;gap:12px;
+}
+.scroll-cue::before{content:'';display:block;width:0.5px;height:36px;background:var(--border2);animation:scpulse 2.2s ease-in-out infinite}
+@keyframes scpulse{0%,100%{opacity:0.2;transform:scaleY(0.5)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ── SITE HEADER ───────────────────────────────────────── */
+.site-header{display:none;flex-direction:column;position:sticky;top:0;z-index:50;background:var(--bg)}
+.header-bar{
+  padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:0.5px solid var(--border);
+}
+.logo{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;letter-spacing:0.2em;color:var(--cream)}
 .logo em{color:var(--gold);font-style:italic}
-.cart-btn{background:none;border:0.5px solid var(--border);border-radius:20px;padding:6px 14px;font-size:11px;letter-spacing:0.08em;cursor:pointer;color:var(--color-text-secondary);font-family:'Jost',sans-serif;display:flex;align-items:center;gap:6px;transition:all 0.2s}
+.cart-btn{
+  background:none;border:0.5px solid var(--border2);color:var(--muted);
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;
+  padding:6px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all 0.2s;
+}
 .cart-btn:hover{border-color:var(--gold);color:var(--gold)}
-.cart-count{background:var(--gold);color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px;display:flex;align-items:center;justify-content:center}
-.nav{display:flex;padding:0 2rem;border-bottom:0.5px solid var(--border);background:var(--color-background-primary);overflow-x:auto;display:none}
-.nav-btn{background:none;border:none;padding:12px 16px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;color:var(--color-text-secondary);font-family:'Jost',sans-serif;border-bottom:1.5px solid transparent;transition:all 0.2s;white-space:nowrap}
+.cart-count{
+  background:var(--gold);color:var(--bg);border-radius:50%;
+  width:16px;height:16px;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:700;
+}
+.site-nav{
+  display:flex;padding:0 2rem;border-bottom:0.5px solid var(--border);
+  overflow-x:auto;scrollbar-width:none;
+}
+.site-nav::-webkit-scrollbar{display:none}
+.nav-btn{
+  background:none;border:none;padding:10px 16px;
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;
+  cursor:pointer;color:var(--muted);border-bottom:1px solid transparent;transition:all 0.2s;white-space:nowrap;
+}
 .nav-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
-.nav-btn:hover{color:var(--color-text-primary)}
+.nav-btn:hover{color:var(--cream)}
 
+/* ── MAIN VIEW ─────────────────────────────────────────── */
 .main-view{display:none}
-.filter-bar{display:flex;gap:8px;padding:1rem 2rem 0;overflow-x:auto;scrollbar-width:none}
+.view-head{
+  padding:2rem 2rem 0;display:flex;align-items:baseline;justify-content:space-between;
+}
+.view-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;font-style:italic;color:var(--cream)}
+.view-meta{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase}
+
+.filter-bar{display:flex;gap:6px;padding:1.25rem 2rem;overflow-x:auto;scrollbar-width:none}
 .filter-bar::-webkit-scrollbar{display:none}
-.filter-chip{background:none;border:0.5px solid var(--color-border-tertiary);border-radius:16px;padding:5px 14px;font-size:11px;letter-spacing:0.08em;cursor:pointer;color:var(--color-text-secondary);font-family:'Jost',sans-serif;white-space:nowrap;transition:all 0.2s}
+.filter-chip{
+  background:none;border:0.5px solid var(--border);color:var(--muted);
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.15em;text-transform:uppercase;
+  padding:6px 14px;cursor:pointer;transition:all 0.2s;white-space:nowrap;
+}
 .filter-chip.active,.filter-chip:hover{border-color:var(--gold);color:var(--gold)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:1px;background:var(--border);margin:1.5rem 2rem}
-.card{background:var(--color-background-primary);padding:1.25rem;cursor:pointer;transition:background 0.2s;position:relative}
-.card:hover{background:var(--color-background-secondary)}
-.card:hover .card-add{opacity:1}
-.card-img{width:100%;aspect-ratio:1;background:var(--color-background-secondary);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:38px;margin-bottom:12px;position:relative}
-.card-badge{position:absolute;top:8px;left:8px;background:var(--gold);color:#fff;font-size:9px;letter-spacing:0.1em;padding:3px 7px;border-radius:2px;text-transform:uppercase}
-.card-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:var(--color-text-primary);margin-bottom:3px}
-.card-material{font-size:11px;color:var(--color-text-secondary);letter-spacing:0.05em;margin-bottom:10px}
+
+.grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));
+  gap:1px;background:var(--border);margin:0 2rem 2rem;
+}
+.card{
+  background:var(--bg2);padding:1.4rem;cursor:pointer;transition:all 0.25s;
+  position:relative;overflow:hidden;
+}
+.card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--border),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.card:hover{background:var(--bg3)}
+.card:hover::after{opacity:1}
+.card:hover .card-add{opacity:1;transform:scale(1)}
+
+.card-img{
+  width:100%;aspect-ratio:1;background:rgba(201,168,76,0.03);
+  border:0.5px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:44px;margin-bottom:14px;position:relative;overflow:hidden;
+}
+.card-tag{
+  position:absolute;top:0;left:0;
+  background:var(--gold);color:var(--bg);
+  font-family:'Space Mono',monospace;font-size:7px;letter-spacing:0.14em;
+  padding:4px 8px;text-transform:uppercase;font-weight:700;z-index:1;
+}
+.card-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--cream);margin-bottom:2px}
+.card-material{font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:0.08em;margin-bottom:12px;line-height:1.5}
 .card-footer{display:flex;align-items:center;justify-content:space-between}
-.card-price{font-size:14px;font-weight:500;color:var(--color-text-primary)}
-.card-add{opacity:0;background:var(--gold);color:#fff;border:none;border-radius:50%;width:28px;height:28px;font-size:16px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center}
-.card-add:hover{background:var(--gold3);transform:scale(1.1)}
+.card-price{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--cream)}
+.card-price .sym{font-family:'Space Mono',monospace;font-size:9px;color:var(--gold);margin-right:2px}
+.card-add{
+  opacity:0;transform:scale(0.75);
+  background:var(--gold);color:var(--bg);border:none;
+  width:28px;height:28px;font-size:16px;cursor:pointer;
+  transition:all 0.2s;display:flex;align-items:center;justify-content:center;font-weight:700;
+}
+.card-add:hover{background:var(--gold2)}
+.no-results{
+  grid-column:1/-1;padding:3rem;text-align:center;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;
+}
 
+/* ── DETAIL VIEW ───────────────────────────────────────── */
 .detail-view{padding:2rem;display:none}
-.back-btn{background:none;border:none;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-text-secondary);cursor:pointer;font-family:'Jost',sans-serif;display:flex;align-items:center;gap:6px;margin-bottom:1.5rem;padding:0}
-.back-btn:hover{color:var(--color-text-primary)}
-.detail-layout{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
-.detail-img{aspect-ratio:1;background:var(--color-background-secondary);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:80px}
-.detail-name{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--color-text-primary);margin-bottom:6px}
-.detail-mat{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
-.detail-desc{font-size:14px;color:var(--color-text-secondary);line-height:1.75;margin-bottom:20px}
-.detail-price{font-size:24px;font-weight:500;color:var(--color-text-primary);margin-bottom:20px}
-.size-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:8px}
-.sizes{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-.size-btn{border:0.5px solid var(--color-border-tertiary);background:none;padding:6px 14px;font-size:12px;cursor:pointer;font-family:'Jost',sans-serif;color:var(--color-text-secondary);border-radius:4px;transition:all 0.2s}
-.size-btn.active{border-color:var(--gold);color:var(--gold);background:rgba(184,150,46,0.07)}
-.add-btn{width:100%;background:var(--deep);color:#fff;border:none;padding:14px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;border-radius:4px;transition:background 0.2s}
-.add-btn:hover{background:var(--gold)}
-.specs{margin-top:1.5rem;border-top:0.5px solid var(--border);padding-top:1.5rem}
-.spec-row{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:0.5px solid var(--border)}
-.spec-l{color:var(--color-text-secondary)}
+.back-btn{
+  background:none;border:none;font-family:'Space Mono',monospace;font-size:8px;
+  letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);
+  cursor:pointer;display:flex;align-items:center;gap:8px;margin-bottom:2rem;padding:0;transition:color 0.2s;
+}
+.back-btn:hover{color:var(--gold)}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.detail-img{
+  aspect-ratio:1;background:rgba(201,168,76,0.03);border:0.5px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:92px;
+  position:relative;overflow:hidden;
+}
+.detail-img::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 40% 40%,rgba(201,168,76,0.06) 0%,transparent 65%);
+}
+.detail-eyebrow{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.28em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:10px;
+}
+.detail-name{
+  font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:300;
+  color:var(--cream);margin-bottom:6px;line-height:1.05;
+}
+.detail-mat{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.16em;
+  color:var(--muted);text-transform:uppercase;margin-bottom:22px;
+}
+.detail-desc{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:24px;font-weight:300}
+.detail-price{
+  font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;
+  color:var(--cream);margin-bottom:24px;
+}
+.detail-price .sym{font-family:'Space Mono',monospace;font-size:10px;color:var(--gold);margin-right:4px;vertical-align:middle}
+.size-label{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.22em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:10px;
+}
+.sizes{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.size-btn{
+  border:0.5px solid var(--border);background:none;padding:7px 14px;font-size:11px;
+  cursor:pointer;font-family:'Space Mono',monospace;color:var(--muted);transition:all 0.2s;
+}
+.size-btn.active{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.06)}
+.add-btn{
+  width:100%;background:var(--gold);color:var(--bg);border:none;padding:15px;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.28em;
+  text-transform:uppercase;cursor:pointer;transition:background 0.2s;font-weight:700;
+}
+.add-btn:hover{background:var(--gold2)}
+.specs{margin-top:2rem;border-top:0.5px solid var(--border);padding-top:1.5rem}
+.specs-label{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.22em;
+  color:var(--muted2);text-transform:uppercase;margin-bottom:12px;
+}
+.spec-row{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;padding:9px 0;border-bottom:0.5px solid var(--border);
+}
+.spec-k{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:0.05em}
+.spec-v{color:var(--cream);font-weight:300}
 
+/* ── CART VIEW ─────────────────────────────────────────── */
 .cart-view{padding:2rem;display:none}
+.cart-head{
+  font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;
+  font-style:italic;color:var(--cream);margin-bottom:1.5rem;
+}
 .cart-item{display:flex;gap:16px;padding:16px 0;border-bottom:0.5px solid var(--border);align-items:center}
-.cart-thumb{width:60px;height:60px;background:var(--color-background-secondary);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
-.cart-info{flex:1}
-.cart-item-name{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--color-text-primary)}
-.cart-item-meta{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
-.cart-remove{background:none;border:none;color:var(--color-text-secondary);cursor:pointer;font-size:18px;padding:4px;transition:color 0.2s}
+.cart-thumb{
+  width:58px;height:58px;background:rgba(201,168,76,0.03);
+  border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;
+}
+.cart-info{flex:1;min-width:0}
+.cart-item-name{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--cream)}
+.cart-item-meta{font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);margin-top:4px;letter-spacing:0.06em}
+.cart-item-price{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--cream);white-space:nowrap;padding:0 12px}
+.cart-remove{background:none;border:none;color:var(--muted2);cursor:pointer;font-size:14px;padding:4px;transition:color 0.2s}
 .cart-remove:hover{color:var(--gold)}
-.cart-total-row{padding:1.5rem 0;display:flex;justify-content:space-between;align-items:center;border-top:0.5px solid var(--border);margin-top:0.5rem}
-.checkout-btn{width:100%;background:var(--gold);color:#fff;border:none;padding:14px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;border-radius:4px;transition:background 0.2s}
-.checkout-btn:hover{background:var(--gold3)}
-.empty-cart{text-align:center;padding:3rem 1rem;color:var(--color-text-secondary);font-size:13px;letter-spacing:0.05em}
+.cart-total-row{
+  padding:1.5rem 0;display:flex;justify-content:space-between;align-items:center;
+  border-top:0.5px solid var(--border);
+}
+.total-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted)}
+.total-amt{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--cream)}
+.checkout-btn{
+  width:100%;background:var(--gold);color:var(--bg);border:none;padding:15px;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.28em;
+  text-transform:uppercase;cursor:pointer;transition:background 0.2s;font-weight:700;
+}
+.checkout-btn:hover{background:var(--gold2)}
+.empty-cart{
+  text-align:center;padding:4rem 1rem;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;
+}
 
-.toast{position:absolute;bottom:24px;right:24px;background:var(--deep);color:#fff;padding:10px 18px;border-radius:4px;font-size:11px;letter-spacing:0.08em;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:100}
+/* ── TOAST ─────────────────────────────────────────────── */
+.toast{
+  position:fixed;bottom:24px;right:24px;
+  background:var(--cream);color:var(--bg);
+  padding:10px 18px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;
+  opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:300;
+}
 .toast.show{opacity:1}
-@media(max-width:480px){.detail-layout{grid-template-columns:1fr}.splash-brand{font-size:48px}}
+
+/* ── RESPONSIVE ────────────────────────────────────────── */
+@media(max-width:640px){
+  .splash{padding:6vw 7vw 6vw}
+  .splash-stat,.scroll-cue{display:none}
+  .c{width:60px;height:60px}
+  .detail-grid{grid-template-columns:1fr}
+  .grid{margin:0 1rem 1rem}
+  .filter-bar,.view-head,.detail-view,.cart-view{padding-left:1rem;padding-right:1rem}
+  .header-bar{padding:1rem}
+  .site-nav{padding:0 1rem}
+}
 </style>
+</head>
+<body>
 
-<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden">Sihyaah Jewellers — fine jewellery store with rings, necklaces, earrings and bracelets</h2>
+<div id="app">
 
-<div class="app" id="app">
-
-  <div class="splash" id="splash">
-    <svg class="splash-ornament" viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <line x1="60" y1="0" x2="60" y2="520" stroke="#B8962E" stroke-width="0.5" opacity="0.18"/>
-      <line x1="620" y1="0" x2="620" y2="520" stroke="#B8962E" stroke-width="0.5" opacity="0.18"/>
-      <line x1="0" y1="60" x2="680" y2="60" stroke="#B8962E" stroke-width="0.5" opacity="0.18"/>
-      <line x1="0" y1="460" x2="680" y2="460" stroke="#B8962E" stroke-width="0.5" opacity="0.18"/>
-      <rect x="60" y="60" width="560" height="400" fill="none" stroke="#B8962E" stroke-width="0.5" opacity="0.25"/>
-      <rect x="72" y="72" width="536" height="376" fill="none" stroke="#B8962E" stroke-width="0.3" opacity="0.15"/>
-      <polygon points="340,30 350,50 340,45 330,50" fill="#B8962E" opacity="0.35"/>
-      <polygon points="340,490 350,470 340,475 330,470" fill="#B8962E" opacity="0.35"/>
-      <circle cx="60" cy="60" r="4" fill="none" stroke="#B8962E" stroke-width="0.8" opacity="0.5"/>
-      <circle cx="620" cy="60" r="4" fill="none" stroke="#B8962E" stroke-width="0.8" opacity="0.5"/>
-      <circle cx="60" cy="460" r="4" fill="none" stroke="#B8962E" stroke-width="0.8" opacity="0.5"/>
-      <circle cx="620" cy="460" r="4" fill="none" stroke="#B8962E" stroke-width="0.8" opacity="0.5"/>
-      <line x1="60" y1="60" x2="90" y2="60" stroke="#B8962E" stroke-width="1" opacity="0.6"/>
-      <line x1="60" y1="60" x2="60" y2="90" stroke="#B8962E" stroke-width="1" opacity="0.6"/>
-      <line x1="620" y1="60" x2="590" y2="60" stroke="#B8962E" stroke-width="1" opacity="0.6"/>
-      <line x1="620" y1="60" x2="620" y2="90" stroke="#B8962E" stroke-width="1" opacity="0.6"/>
-      <line x1="60" y1="460" x2="90" y2="460" stroke="#B8962E" stroke-width="1" opacity="0.6"/>
-      <line x1="60" y1="460" x2="60" y2="430" stroke="#B8962E" stroke-width="1" opacity="0.6"/>
-      <line x1="620" y1="460" x2="590" y2="460" stroke="#B8962E" stroke-width="1" opacity="0.6"/>
-      <line x1="620" y1="460" x2="620" y2="430" stroke="#B8962E" stroke-width="1" opacity="0.6"/>
-      <polygon points="340,252 346,264 340,260 334,264" fill="#B8962E" opacity="0.12" transform="rotate(0,340,258)"/>
-      <polygon points="340,252 346,264 340,260 334,264" fill="none" stroke="#B8962E" stroke-width="0.5" opacity="0.3" transform="rotate(0,340,258)"/>
-      <circle cx="340" cy="258" r="28" fill="none" stroke="#B8962E" stroke-width="0.5" opacity="0.2"/>
-      <circle cx="340" cy="258" r="20" fill="none" stroke="#B8962E" stroke-width="0.5" opacity="0.15"/>
-      <line x1="200" y1="258" x2="312" y2="258" stroke="#B8962E" stroke-width="0.5" opacity="0.2"/>
-      <line x1="368" y1="258" x2="480" y2="258" stroke="#B8962E" stroke-width="0.5" opacity="0.2"/>
-      <line x1="340" y1="130" x2="340" y2="230" stroke="#B8962E" stroke-width="0.5" opacity="0.2"/>
-      <line x1="340" y1="286" x2="340" y2="390" stroke="#B8962E" stroke-width="0.5" opacity="0.2"/>
-    </svg>
-    <div class="splash-center">
-      <div class="splash-eyebrow">Est. 2024 &nbsp;·&nbsp; Fine jewellery</div>
-      <div class="splash-brand">Sih<em>y</em>aah</div>
-      <div class="splash-tagline">Where every piece tells a story</div>
-      <div class="splash-divider">
-        <div class="splash-divider-line"></div>
-        <div class="splash-divider-gem"></div>
-        <div class="splash-divider-line"></div>
-      </div>
-      <div class="splash-badges">
-        <div class="badge"><div class="badge-dot"></div>Handcrafted</div>
-        <div class="badge"><div class="badge-dot"></div>Ethically sourced</div>
-        <div class="badge"><div class="badge-dot"></div>Hallmarked gold</div>
-      </div>
-      <button class="splash-cta" onclick="enterStore()">Enter the collection</button>
-      <div class="splash-scroll">
-        <div class="scroll-line"></div>
-        <span>Scroll to explore</span>
-      </div>
+  <!-- MARQUEE (always visible) -->
+  <div class="marquee-bar">
+    <div class="marquee-track">
+      <span class="m-item"><b>✦</b>Handcrafted in India</span>
+      <span class="m-item"><b>/</b>18K &amp; 14K Gold</span>
+      <span class="m-item"><b>✦</b>Ethically Sourced Stones</span>
+      <span class="m-item"><b>/</b>BIS Hallmarked</span>
+      <span class="m-item"><b>✦</b>New Arrivals Now Live</span>
+      <span class="m-item"><b>/</b>Free Shipping Above ₹5000</span>
+      <span class="m-item"><b>✦</b>Handcrafted in India</span>
+      <span class="m-item"><b>/</b>18K &amp; 14K Gold</span>
+      <span class="m-item"><b>✦</b>Ethically Sourced Stones</span>
+      <span class="m-item"><b>/</b>BIS Hallmarked</span>
+      <span class="m-item"><b>✦</b>New Arrivals Now Live</span>
+      <span class="m-item"><b>/</b>Free Shipping Above ₹5000</span>
     </div>
   </div>
 
-  <header class="header" id="header">
-    <div class="logo">Sih<em>y</em>aah</div>
-    <button class="cart-btn" onclick="showCart()">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1h2l1.5 7.5h6l1.5-6H4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><circle cx="6" cy="11.5" r="1" fill="currentColor"/><circle cx="10" cy="11.5" r="1" fill="currentColor"/></svg>
-      Cart <span class="cart-count" id="cart-count">0</span>
-    </button>
-  </header>
-  <nav class="nav" id="mainnav">
-    <button class="nav-btn active" onclick="setNav(this,'all')">All</button>
-    <button class="nav-btn" onclick="setNav(this,'rings')">Rings</button>
-    <button class="nav-btn" onclick="setNav(this,'necklaces')">Necklaces</button>
-    <button class="nav-btn" onclick="setNav(this,'earrings')">Earrings</button>
-    <button class="nav-btn" onclick="setNav(this,'bracelets')">Bracelets</button>
-  </nav>
+  <!-- SPLASH -->
+  <div class="splash" id="splash">
+    <div class="c tl"></div>
+    <div class="c tr"></div>
+    <div class="c bl"></div>
+    <div class="c br"></div>
+    <div class="splash-slash"></div>
+    <div class="splash-slash2"></div>
 
+    <div class="splash-eyebrow">Est. 2024 &nbsp;·&nbsp; Fine Jewellery</div>
+
+    <div class="splash-brand">
+      Sih<em>y</em>aah
+      <span class="outline">Jewel<em>ler</em>s</span>
+    </div>
+
+    <div class="splash-tagline">
+      Where every piece tells a story
+      <span class="slash">/</span>
+      Handcrafted gold &amp; gemstones
+      <span class="slash">/</span>
+      Est. 2024
+    </div>
+
+    <div class="splash-actions">
+      <button class="splash-cta" onclick="enterStore()">Enter the collection</button>
+      <div class="splash-badges">
+        <div class="s-badge">Handcrafted</div>
+        <div class="s-badge">Ethically sourced</div>
+        <div class="s-badge">Hallmarked gold</div>
+      </div>
+    </div>
+
+    <div class="splash-stat">
+      <div class="stat-num">8<em>+</em></div>
+      <div class="stat-label">Signature pieces</div>
+    </div>
+
+    <div class="scroll-cue">Scroll to explore</div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="header-bar">
+      <div class="logo">Sih<em>y</em>aah</div>
+      <button class="cart-btn" onclick="showCart()">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+          <path d="M1 1h2l1.5 7.5h6l1.5-6H4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+          <circle cx="6" cy="11.5" r="1" fill="currentColor"/>
+          <circle cx="10" cy="11.5" r="1" fill="currentColor"/>
+        </svg>
+        Cart &nbsp;<span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+    <nav class="site-nav" id="site-nav">
+      <button class="nav-btn active" onclick="setNav(this,'all')">All</button>
+      <button class="nav-btn" onclick="setNav(this,'rings')">Rings</button>
+      <button class="nav-btn" onclick="setNav(this,'necklaces')">Necklaces</button>
+      <button class="nav-btn" onclick="setNav(this,'earrings')">Earrings</button>
+      <button class="nav-btn" onclick="setNav(this,'bracelets')">Bracelets</button>
+    </nav>
+  </header>
+
+  <!-- MAIN -->
   <div class="main-view" id="main-view">
+    <div class="view-head">
+      <div class="view-title">The Collection</div>
+      <div class="view-meta" id="view-meta">— pieces</div>
+    </div>
     <div class="filter-bar">
       <button class="filter-chip active" onclick="setFilter(this,'all')">All pieces</button>
       <button class="filter-chip" onclick="setFilter(this,'new')">New arrivals</button>
@@ -174,77 +439,207 @@
     <div class="grid" id="product-grid"></div>
   </div>
 
+  <!-- DETAIL -->
   <div class="detail-view" id="detail-view"></div>
+
+  <!-- CART -->
   <div class="cart-view" id="cart-view"></div>
+
   <div class="toast" id="toast"></div>
 </div>
 
 <script>
-const products=[
-  {id:1,name:'Soleil Ring',material:'18K Yellow Gold',price:1840,category:'rings',tag:'new',emoji:'💍',desc:'A radiant solitaire ring featuring a brilliant-cut diamond in polished 18K yellow gold. Understated elegance, timeless design.',specs:{Metal:'18K Yellow Gold',Stone:'Diamond 0.5ct',Setting:'Prong set',Width:'2.8mm'},sizes:['5','6','7','8','9']},
-  {id:2,name:'Luna Pendant',material:'Sterling Silver & Pearl',price:420,category:'necklaces',tag:'',emoji:'📿',desc:'Lustrous freshwater pearl suspended from a delicate sterling silver chain. A piece that moves with you.',specs:{Metal:'Sterling Silver',Stone:'Freshwater Pearl',Chain:'42cm',Weight:'3.2g'},sizes:['42cm','45cm','50cm']},
-  {id:3,name:'Celeste Hoops',material:'14K Rose Gold',price:680,category:'earrings',tag:'new',emoji:'🔮',desc:'Softly polished rose gold hoops with a satin finish interior. Light-catching and effortlessly wearable.',specs:{Metal:'14K Rose Gold',Diameter:'30mm',Closure:'Hinged',Weight:'4.1g per pair'},sizes:['One size']},
-  {id:4,name:'Éclat Bracelet',material:'18K Gold & Diamonds',price:2950,category:'bracelets',tag:'',emoji:'✨',desc:'A continuous line of pavé diamonds set in 18K gold — pure brilliance that encircles the wrist.',specs:{Metal:'18K Yellow Gold',Stones:'Diamonds 1.2ct total',Length:'18cm',Clasp:'Hidden box clasp'},sizes:['16cm','17cm','18cm','19cm']},
-  {id:5,name:'Borealis Ring',material:'14K White Gold & Sapphire',price:1240,category:'rings',tag:'',emoji:'💙',desc:'A cornflower blue sapphire flanked by diamond baguettes in 14K white gold. Inspired by the northern lights.',specs:{Metal:'14K White Gold',Center:'Sapphire 1.1ct',Accent:'Diamond baguettes',Width:'3.5mm'},sizes:['5','6','7','8','9']},
-  {id:6,name:'Aura Choker',material:'Sterling Silver',price:290,category:'necklaces',tag:'new',emoji:'⭕',desc:'A sculptural sterling silver choker with a subtle hammered texture. Contemporary yet classic.',specs:{Metal:'Sterling Silver 925',Length:'38cm + 5cm ext.',Width:'4mm',Finish:'Hammered'},sizes:['One size']},
-  {id:7,name:'Miel Studs',material:'18K Gold & Citrine',price:560,category:'earrings',tag:'',emoji:'🌟',desc:'Warm citrine stones bezel-set in polished 18K gold — like drops of sunlight on the ear.',specs:{Metal:'18K Yellow Gold',Stone:'Citrine 0.6ct each',Setting:'Bezel',Back:'Push back'},sizes:['One size']},
-  {id:8,name:'Cascade Cuff',material:'Sterling Silver',price:380,category:'bracelets',tag:'',emoji:'🌊',desc:'A fluid open-ended cuff in sterling silver with a flowing wave motif. Adjustable to fit most wrists.',specs:{Metal:'Sterling Silver 925',Width:'8mm',Opening:'30mm',Finish:'Polish + satin'},sizes:['One size']},
+const products = [
+  {id:1,name:'Soleil Ring',material:'18K Yellow Gold',price:1840,category:'rings',tag:'new',emoji:'💍',
+   desc:'A radiant solitaire ring featuring a brilliant-cut diamond in polished 18K yellow gold. Understated elegance, timeless design.',
+   specs:{Metal:'18K Yellow Gold',Stone:'Diamond 0.5ct',Setting:'Prong set',Width:'2.8mm'},
+   sizes:['5','6','7','8','9']},
+  {id:2,name:'Luna Pendant',material:'Sterling Silver & Pearl',price:420,category:'necklaces',tag:'',emoji:'📿',
+   desc:'Lustrous freshwater pearl suspended from a delicate sterling silver chain. A piece that moves with you.',
+   specs:{Metal:'Sterling Silver',Stone:'Freshwater Pearl',Chain:'42cm',Weight:'3.2g'},
+   sizes:['42cm','45cm','50cm']},
+  {id:3,name:'Celeste Hoops',material:'14K Rose Gold',price:680,category:'earrings',tag:'new',emoji:'🔮',
+   desc:'Softly polished rose gold hoops with a satin finish interior. Light-catching and effortlessly wearable.',
+   specs:{Metal:'14K Rose Gold',Diameter:'30mm',Closure:'Hinged',Weight:'4.1g per pair'},
+   sizes:['One size']},
+  {id:4,name:'Éclat Bracelet',material:'18K Gold & Diamonds',price:2950,category:'bracelets',tag:'',emoji:'✨',
+   desc:'A continuous line of pavé diamonds set in 18K gold — pure brilliance that encircles the wrist.',
+   specs:{Metal:'18K Yellow Gold',Stones:'Diamonds 1.2ct total',Length:'18cm',Clasp:'Hidden box clasp'},
+   sizes:['16cm','17cm','18cm','19cm']},
+  {id:5,name:'Borealis Ring',material:'14K White Gold & Sapphire',price:1240,category:'rings',tag:'',emoji:'💙',
+   desc:'A cornflower blue sapphire flanked by diamond baguettes in 14K white gold. Inspired by the northern lights.',
+   specs:{Metal:'14K White Gold',Center:'Sapphire 1.1ct',Accent:'Diamond baguettes',Width:'3.5mm'},
+   sizes:['5','6','7','8','9']},
+  {id:6,name:'Aura Choker',material:'Sterling Silver',price:290,category:'necklaces',tag:'new',emoji:'⭕',
+   desc:'A sculptural sterling silver choker with a subtle hammered texture. Contemporary yet classic.',
+   specs:{Metal:'Sterling Silver 925',Length:'38cm + 5cm ext.',Width:'4mm',Finish:'Hammered'},
+   sizes:['One size']},
+  {id:7,name:'Miel Studs',material:'18K Gold & Citrine',price:560,category:'earrings',tag:'',emoji:'🌟',
+   desc:'Warm citrine stones bezel-set in polished 18K gold — like drops of sunlight on the ear.',
+   specs:{Metal:'18K Yellow Gold',Stone:'Citrine 0.6ct each',Setting:'Bezel',Back:'Push back'},
+   sizes:['One size']},
+  {id:8,name:'Cascade Cuff',material:'Sterling Silver',price:380,category:'bracelets',tag:'',emoji:'🌊',
+   desc:'A fluid open-ended cuff in sterling silver with a flowing wave motif. Adjustable to fit most wrists.',
+   specs:{Metal:'Sterling Silver 925',Width:'8mm',Opening:'30mm',Finish:'Polish + satin'},
+   sizes:['One size']},
 ];
-let cart=[],currentFilter='all',currentCat='all';
 
-function enterStore(){
-  document.getElementById('splash').style.display='none';
-  document.getElementById('header').style.display='flex';
-  document.getElementById('mainnav').style.display='flex';
-  document.getElementById('main-view').style.display='block';
+let cart = [], currentFilter = 'all', currentCat = 'all';
+
+function enterStore() {
+  document.getElementById('splash').style.display = 'none';
+  const h = document.getElementById('site-header');
+  h.style.display = 'flex';
+  document.getElementById('main-view').style.display = 'block';
   renderGrid();
 }
-function filteredProducts(){
-  return products.filter(p=>{
-    const c=currentCat==='all'||p.category===currentCat;
-    const f=currentFilter==='all'||(currentFilter==='new'&&p.tag==='new')||(currentFilter==='gold'&&p.material.toLowerCase().includes('gold'))||(currentFilter==='silver'&&p.material.toLowerCase().includes('silver'))||(currentFilter==='gemstone'&&['sapphire','diamond','citrine','pearl'].some(g=>p.material.toLowerCase().includes(g)));
-    return c&&f;
+
+function filtered() {
+  return products.filter(p => {
+    const c = currentCat === 'all' || p.category === currentCat;
+    const f = currentFilter === 'all'
+      || (currentFilter === 'new' && p.tag === 'new')
+      || (currentFilter === 'gold' && p.material.toLowerCase().includes('gold'))
+      || (currentFilter === 'silver' && p.material.toLowerCase().includes('silver'))
+      || (currentFilter === 'gemstone' && ['sapphire','diamond','citrine','pearl'].some(g => p.material.toLowerCase().includes(g)));
+    return c && f;
   });
 }
-function renderGrid(){
-  const g=document.getElementById('product-grid');
-  const items=filteredProducts();
-  g.innerHTML=items.map(p=>`<div class="card" onclick="showDetail(${p.id})"><div class="card-img">${p.tag?`<div class="card-badge">${p.tag}</div>`:''}<span style="font-size:38px">${p.emoji}</span></div><div class="card-name">${p.name}</div><div class="card-material">${p.material}</div><div class="card-footer"><div class="card-price">₹${(p.price*83).toLocaleString('en-IN')}</div><button class="card-add" onclick="event.stopPropagation();quickAdd(${p.id},this)">+</button></div></div>`).join('');
-  if(!items.length)g.innerHTML='<div style="grid-column:1/-1;padding:2rem;text-align:center;color:var(--color-text-secondary);font-size:13px">No pieces match your selection</div>';
+
+function renderGrid() {
+  const items = filtered();
+  const g = document.getElementById('product-grid');
+  document.getElementById('view-meta').textContent = `${items.length} pieces`;
+  g.innerHTML = items.map(p => `
+    <div class="card" onclick="showDetail(${p.id})">
+      <div class="card-img">
+        ${p.tag ? `<div class="card-tag">${p.tag}</div>` : ''}
+        <span>${p.emoji}</span>
+      </div>
+      <div class="card-name">${p.name}</div>
+      <div class="card-material">${p.material}</div>
+      <div class="card-footer">
+        <div class="card-price"><span class="sym">₹</span>${(p.price*83).toLocaleString('en-IN')}</div>
+        <button class="card-add" onclick="event.stopPropagation();quickAdd(${p.id})">+</button>
+      </div>
+    </div>`).join('');
+  if (!items.length) g.innerHTML = '<div class="no-results">No pieces match your selection</div>';
 }
-function showDetail(id){
-  const p=products.find(x=>x.id===id);
-  document.getElementById('main-view').style.display='none';
-  document.getElementById('cart-view').style.display='none';
-  const dv=document.getElementById('detail-view');
-  dv.style.display='block';
-  dv.innerHTML=`<button class="back-btn" onclick="backToMain()">← Back</button><div class="detail-layout"><div class="detail-img"><span>${p.emoji}</span></div><div><div class="detail-name">${p.name}</div><div class="detail-mat">${p.material}</div><div class="detail-desc">${p.desc}</div><div class="detail-price">₹${(p.price*83).toLocaleString('en-IN')}</div><div class="size-label">${p.category==='rings'?'Ring size':p.category==='necklaces'||p.category==='bracelets'?'Length':'Size'}</div><div class="sizes">${p.sizes.map((s,i)=>`<button class="size-btn${i===0?' active':''}" onclick="selSize(this)">${s}</button>`).join('')}</div><button class="add-btn" onclick="addFromDetail(${p.id})">Add to cart</button><div class="specs">${Object.entries(p.specs).map(([k,v])=>`<div class="spec-row"><span class="spec-l">${k}</span><span>${v}</span></div>`).join('')}</div></div></div>`;
+
+function showDetail(id) {
+  const p = products.find(x => x.id === id);
+  document.getElementById('main-view').style.display = 'none';
+  document.getElementById('cart-view').style.display = 'none';
+  const dv = document.getElementById('detail-view');
+  dv.style.display = 'block';
+  const sizeLabel = p.category === 'rings' ? 'Ring size' : (p.category === 'necklaces' || p.category === 'bracelets') ? 'Length' : 'Size';
+  dv.innerHTML = `
+    <button class="back-btn" onclick="backToMain()">← Back to collection</button>
+    <div class="detail-grid">
+      <div class="detail-img"><span>${p.emoji}</span></div>
+      <div>
+        <div class="detail-eyebrow">${p.category} / fine jewellery</div>
+        <div class="detail-name">${p.name}</div>
+        <div class="detail-mat">${p.material}</div>
+        <div class="detail-desc">${p.desc}</div>
+        <div class="detail-price"><span class="sym">₹</span>${(p.price*83).toLocaleString('en-IN')}</div>
+        <div class="size-label">${sizeLabel}</div>
+        <div class="sizes">${p.sizes.map((s,i) => `<button class="size-btn${i===0?' active':''}" onclick="selSize(this)">${s}</button>`).join('')}</div>
+        <button class="add-btn" onclick="addFromDetail(${p.id})">Add to cart</button>
+        <div class="specs">
+          <div class="specs-label">Specifications</div>
+          ${Object.entries(p.specs).map(([k,v]) => `<div class="spec-row"><span class="spec-k">${k}</span><span class="spec-v">${v}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>`;
 }
-function selSize(btn){btn.closest('.sizes').querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
-function addFromDetail(id){
-  const p=products.find(x=>x.id===id);
-  const s=document.querySelector('.size-btn.active');
-  cart.push({...p,size:s?s.textContent:'One size',uid:Date.now()});
-  updateCount();showToast(`${p.name} added to cart`);
+
+function selSize(btn) {
+  btn.closest('.sizes').querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
 }
-function quickAdd(id,btn){
-  const p=products.find(x=>x.id===id);
-  cart.push({...p,size:p.sizes[0],uid:Date.now()});
-  updateCount();showToast(`${p.name} added`);
+
+function addFromDetail(id) {
+  const p = products.find(x => x.id === id);
+  const s = document.querySelector('.size-btn.active');
+  cart.push({...p, size: s ? s.textContent : 'One size', uid: Date.now()});
+  updateCount();
+  showToast(`${p.name} added to cart`);
 }
-function updateCount(){document.getElementById('cart-count').textContent=cart.length}
-function showCart(){
-  document.getElementById('main-view').style.display='none';
-  document.getElementById('detail-view').style.display='none';
-  const cv=document.getElementById('cart-view');
-  cv.style.display='block';
-  if(!cart.length){cv.innerHTML=`<button class="back-btn" onclick="backToMain()">← Continue shopping</button><div class="empty-cart">Your cart is empty</div>`;return}
-  const total=cart.reduce((s,i)=>s+i.price*83,0);
-  cv.innerHTML=`<button class="back-btn" onclick="backToMain()">← Continue shopping</button><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;margin-bottom:1.5rem;color:var(--color-text-primary)">Your cart (${cart.length})</div>${cart.map(i=>`<div class="cart-item"><div class="cart-thumb">${i.emoji}</div><div class="cart-info"><div class="cart-item-name">${i.name}</div><div class="cart-item-meta">${i.material} · Size ${i.size}</div></div><div style="font-size:14px;font-weight:500;color:var(--color-text-primary)">₹${(i.price*83).toLocaleString('en-IN')}</div><button class="cart-remove" onclick="removeItem(${i.uid})">×</button></div>`).join('')}<div class="cart-total-row"><span style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-text-secondary)">Total</span><span style="font-size:22px;font-family:'Cormorant Garamond',serif;font-weight:300;color:var(--color-text-primary)">₹${total.toLocaleString('en-IN')}</span></div><button class="checkout-btn" onclick="showToast('Checkout coming soon — thank you!')">Proceed to checkout</button>`;
+
+function quickAdd(id) {
+  const p = products.find(x => x.id === id);
+  cart.push({...p, size: p.sizes[0], uid: Date.now()});
+  updateCount();
+  showToast(`${p.name} added`);
 }
-function removeItem(uid){cart=cart.filter(i=>i.uid!==uid);updateCount();showCart()}
-function backToMain(){document.getElementById('detail-view').style.display='none';document.getElementById('cart-view').style.display='none';document.getElementById('main-view').style.display='block'}
-function setNav(btn,cat){document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');currentCat=cat;renderGrid()}
-function setFilter(btn,f){document.querySelectorAll('.filter-chip').forEach(b=>b.classList.remove('active'));btn.classList.add('active');currentFilter=f;renderGrid()}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+
+function updateCount() {
+  document.getElementById('cart-count').textContent = cart.length;
+}
+
+function showCart() {
+  document.getElementById('main-view').style.display = 'none';
+  document.getElementById('detail-view').style.display = 'none';
+  const cv = document.getElementById('cart-view');
+  cv.style.display = 'block';
+  if (!cart.length) {
+    cv.innerHTML = `<button class="back-btn" onclick="backToMain()">← Continue shopping</button><div class="empty-cart">Your cart is empty</div>`;
+    return;
+  }
+  const total = cart.reduce((s,i) => s + i.price*83, 0);
+  cv.innerHTML = `
+    <button class="back-btn" onclick="backToMain()">← Continue shopping</button>
+    <div class="cart-head">Your cart (${cart.length})</div>
+    ${cart.map(i => `
+      <div class="cart-item">
+        <div class="cart-thumb">${i.emoji}</div>
+        <div class="cart-info">
+          <div class="cart-item-name">${i.name}</div>
+          <div class="cart-item-meta">${i.material} · Size ${i.size}</div>
+        </div>
+        <div class="cart-item-price">₹${(i.price*83).toLocaleString('en-IN')}</div>
+        <button class="cart-remove" onclick="removeItem(${i.uid})">✕</button>
+      </div>`).join('')}
+    <div class="cart-total-row">
+      <span class="total-label">Total</span>
+      <span class="total-amt">₹${total.toLocaleString('en-IN')}</span>
+    </div>
+    <button class="checkout-btn" onclick="showToast('Checkout coming soon — thank you!')">Proceed to checkout</button>`;
+}
+
+function removeItem(uid) {
+  cart = cart.filter(i => i.uid !== uid);
+  updateCount();
+  showCart();
+}
+
+function backToMain() {
+  document.getElementById('detail-view').style.display = 'none';
+  document.getElementById('cart-view').style.display = 'none';
+  document.getElementById('main-view').style.display = 'block';
+}
+
+function setNav(btn, cat) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCat = cat;
+  renderGrid();
+}
+
+function setFilter(btn, f) {
+  document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = f;
+  renderGrid();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
 </script>
+</body>
+</html>
